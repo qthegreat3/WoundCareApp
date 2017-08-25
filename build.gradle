@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+def slf4jVersion = "1.7.13" 
+def logbackVersion = "1.1.3"
+
+repositories {
+   mavenCentral()
+}
+
+dependencies {
+   providedCompile 'javax.servlet:servlet-api:2.5'
+   
+	//Logging
+    compile group: "org.slf4j", name:"slf4j-api", version: "$slf4jVersion"
+    compile group: "ch.qos.logback", name:"logback-classic", version: "$logbackVersion"
+    compile group: "ch.qos.logback", name:"logback-core", version: "$logbackVersion"
+
+   compile 'org.springframework:spring-webmvc:4.1.4.RELEASE'
+   compile 'org.springframework:spring-jdbc:4.1.4.RELEASE'
+
+   compile 'mysql:mysql-connector-java:5.1.34'
+
+   compile 'org.codehaus.jackson:jackson-core-asl:1.9.2'
+   compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.2'
+   compile 'com.fasterxml.jackson.core:jackson-core:2.4.1'
+   compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1.1'
+
+   runtime 'javax.servlet:jstl:1.1.2'
+}
