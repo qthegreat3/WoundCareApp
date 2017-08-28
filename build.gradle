@@ -9,19 +9,13 @@ repositories {
    mavenCentral()
 }
 
-configurations {
-    
-    // exclude commons-logging in favor of slf4j
-    compile.exclude group:"commons-logging"
-}
-
 dependencies {
    providedCompile 'javax.servlet:servlet-api:2.5'
    
 	//Logging
-    compile group: "org.slf4j", name:"slf4j-api", version: "$slf4jVersion"
-    compile group: "ch.qos.logback", name:"logback-classic", version: "$logbackVersion"
-    compile group: "ch.qos.logback", name:"logback-core", version: "$logbackVersion"
+	compile group: "org.slf4j", name:"slf4j-api", version: "$slf4jVersion"
+	compile group: "ch.qos.logback", name:"logback-classic", version: "$logbackVersion"
+	compile group: "ch.qos.logback", name:"logback-core", version: "$logbackVersion"
 
    compile 'org.springframework:spring-webmvc:4.1.4.RELEASE'
    compile 'org.springframework:spring-jdbc:4.1.4.RELEASE'

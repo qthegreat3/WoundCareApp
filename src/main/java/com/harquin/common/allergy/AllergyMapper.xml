@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.allergy.AllergyMapper">
+	<resultMap type="com.harquin.common.allergy.Allergy" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getAllergies" resultMap="result">
+		select name from allergy_types;
+	</select>
+	
+	<insert id="insertAllergy" parameterType="com.harquin.common.allergy.Allergy">
+		insert into allergy_types (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteAllergy" parameterType="com.harquin.common.allergy.Allergy">
+		delete from allergy_types where name = #{name};
+	</delete>
+</mapper>
+
