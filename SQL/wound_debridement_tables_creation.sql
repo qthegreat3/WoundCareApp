@@ -1,7 +1,13 @@
-create table risk_benefits
+create table debridement
 (
-  name varchar(250),
-  CONSTRAINT risk_benefits_pk PRIMARY KEY (name)
+	id int not null auto_increment,
+	date_obtained date,
+	health_care_surrogate_name varchar(50),
+	pre_debridement_depth int,
+	pre_debridement_stage int,
+	post_debridement_depth int,
+	post_debridement_stage int,
+	constraint debridement_pk PRIMARY KEY (id)
 );
 
 create table debridement_risk_benefits
@@ -26,7 +32,7 @@ create table debridement_tissues
   debridement_id int,
   debridement_tissue varchar(50),
   CONSTRAINT debridement_tissues_pk PRIMARY KEY (debridement_id, debridement_tissue),
-  CONSTRAINT FK_debridement_tissue
+  CONSTRAINT FK_debridement_tissues
       FOREIGN KEY (debridement_id) REFERENCES debridement (id),
   CONSTRAINT FK_debridement_tissue
       FOREIGN KEY (debridement_tissue) REFERENCES debridement_tissue (name)
@@ -41,12 +47,12 @@ create table indications
 create table debridement_indications
 (
   debridement_id int,
-  indications varchar(250),
-  CONSTRAINT debridement_indications_pk PRIMARY KEY (debridement_id, indications),
+  indication varchar(250),
+  CONSTRAINT debridement_indications_pk PRIMARY KEY (debridement_id, indication),
   CONSTRAINT FK_debridement_indications
       FOREIGN KEY (debridement_id) REFERENCES debridement (id),
   CONSTRAINT FK_indications
-      FOREIGN KEY (indications) REFERENCES indications (name)
+      FOREIGN KEY (indication) REFERENCES indications (name)
 );
 
 create table anesthesia
@@ -76,7 +82,7 @@ create table debridement_instruments
 (
   debridement_id int,
   instrument varchar(50),
-  CONSTRAINT debridement_instruments_pk PRIMARY KEY (debridement_id, instruments),
+  CONSTRAINT debridement_instruments_pk PRIMARY KEY (debridement_id, instrument),
   CONSTRAINT FK_debridement_instruments
       FOREIGN KEY (debridement_id) REFERENCES debridement (id),
   CONSTRAINT FK_instruments
@@ -93,7 +99,7 @@ create table debridement_complications
 (
   debridement_id int,
   complication varchar(50),
-  CONSTRAINT debridement_complications_pk PRIMARY KEY (debridement_id, complications),
+  CONSTRAINT debridement_complications_pk PRIMARY KEY (debridement_id, complication),
   CONSTRAINT FK_debridement_complications
       FOREIGN KEY (debridement_id) REFERENCES debridement (id),
   CONSTRAINT FK_complications
@@ -127,23 +133,17 @@ create table debridement_cauterization_options
 (
   debridement_id int,
   cauterization_option varchar(50),
-  CONSTRAINT debridement_cauterization_options_pk PRIMARY KEY (debridement_id, cauterization_options),
+  CONSTRAINT debridement_cauterization_options_pk PRIMARY KEY (debridement_id, cauterization_option),
   CONSTRAINT FK_debridement_cauterization_options
       FOREIGN KEY (debridement_id) REFERENCES debridement (id),
   CONSTRAINT FK_cauterization_options
       FOREIGN KEY (cauterization_option) REFERENCES cauterization_options (name)
 );
 
-create table debridement
+create table pressure_stage
 (
-	id int not null auto_increment,
-	date_obtained date,
-	health_care_surrogate_name varchar(50),
-	pre_debridement_depth int,
-	pre_debridement_stage int,
-	post_debridement_depth int,
-	post_debridement_stage int,
-	constraint debridement_pk PRIMARY KEY (id)
+  name varchar(50),
+  CONSTRAINT pressure_stage_pk PRIMARY KEY (name)
 );
 
 create table arterial
@@ -155,39 +155,13 @@ create table arterial
 	FOREIGN KEY (pressure_stage_id) REFERENCES pressure_stage (name)
 );
 
-create table wound_arterials
-(
-  wound_id int,
-  arterial varchar(50),
-  CONSTRAINT wound_arterials_pk PRIMARY KEY (wound_id, arterial),
-  CONSTRAINT FK_wound_arterials
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_arterial
-      FOREIGN KEY (cauterization_option) REFERENCES arterial (name)
-);
-
-create table pressure_stage
-(
-  name varchar(50),
-  CONSTRAINT pressure_stage_pk PRIMARY KEY (name)
-);
-
 create table location
 (
   name varchar(50),
   CONSTRAINT location_pk PRIMARY KEY (name)
 );
 
-create table wound_locations
-(
-  wound_id int,
-  location varchar(50),
-  CONSTRAINT wound_location_pk PRIMARY KEY (wound_id, location),
-  CONSTRAINT FK_wound_location
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_location
-      FOREIGN KEY (location) REFERENCES location (name)
-);
+
 
 create table wound_description
 (
@@ -195,16 +169,7 @@ create table wound_description
   CONSTRAINT wound_description_pk PRIMARY KEY (name)
 );
 
-create table wound_descriptions
-(
-  wound_id int,
-  wound_description varchar(50),
-  CONSTRAINT wound_description_pk PRIMARY KEY (wound_id, wound_description),
-  CONSTRAINT FK_wound_descriptions
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_description
-      FOREIGN KEY (wound_description) REFERENCES wound_description (name)
-);
+
 
 create table wound_objective
 (
@@ -212,16 +177,7 @@ create table wound_objective
   CONSTRAINT wound_objective_pk PRIMARY KEY (name)
 );
 
-create table wound_objectives
-(
-  wound_id int,
-  wound_objective_id varchar(50),
-  CONSTRAINT wound_objective_pk PRIMARY KEY (wound_id, wound_objective_id),
-  CONSTRAINT FK_wound_objective
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_wound_objective
-      FOREIGN KEY (wound_objective_id) REFERENCES wound_objective (name)
-);
+
 
 create table exudate
 (
@@ -229,16 +185,6 @@ create table exudate
   CONSTRAINT exudate_pk PRIMARY KEY (name)
 );
 
-create table wound_exudates
-(
-  wound_id int,
-  exudate_id varchar(50),
-  CONSTRAINT wound_exudates_pk PRIMARY KEY (wound_id, exudate_id),
-  CONSTRAINT FK_wound_exudate
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_exudate
-      FOREIGN KEY (exudate_id) REFERENCES exudate (name)
-);
 
 create table amount
 (
@@ -258,16 +204,7 @@ create table periwound
   CONSTRAINT periwound_pk PRIMARY KEY (name)
 );
 
-create table wound_periwound
-(
-  wound_id int,
-  periwound_id varchar(50),
-  CONSTRAINT wound_periwound_pk PRIMARY KEY (wound_id, periwound_id),
-  CONSTRAINT FK_wound_periwound
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_periwound
-      FOREIGN KEY (periwound_id) REFERENCES periwound (name)
-);
+
 
 create table blister
 (
@@ -275,16 +212,7 @@ create table blister
   CONSTRAINT blister_pk PRIMARY KEY (name)
 );
 
-create table wound_blister
-(
-  wound_id int,
-  blister_id varchar(50),
-  CONSTRAINT wound_blister_pk PRIMARY KEY (wound_id, blister_id),
-  CONSTRAINT FK_wound_blister
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_blister
-      FOREIGN KEY (blister_id) REFERENCES blister (name)
-);
+
 
 create table dressings
 (
@@ -292,16 +220,7 @@ create table dressings
   CONSTRAINT dressings_pk PRIMARY KEY (name)
 );
 
-create table wound_dressings
-(
-  wound_id int,
-  dressings_id varchar(50),
-  CONSTRAINT wound_dressings_pk PRIMARY KEY (wound_id, dressings_id),
-  CONSTRAINT FK_wound_dressings
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_dressings
-      FOREIGN KEY (dressings_id) REFERENCES dressings (name)
-);
+
 
 create table recommendations
 (
@@ -309,16 +228,7 @@ create table recommendations
   CONSTRAINT recommendations_pk PRIMARY KEY (name)
 );
 
-create table wound_recommendations
-(
-  wound_id int,
-  recommendations_id varchar(50),
-  CONSTRAINT wound_recommendations_pk PRIMARY KEY (wound_id, recommendations_id),
-  CONSTRAINT FK_wound_recommendations
-      FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_recommendations
-      FOREIGN KEY (recommendations_id) REFERENCES recommendations (name)
-);
+
 
 create table source_of_history
 (
@@ -341,19 +251,20 @@ create table frequency
 create table wounds
 (
 	id int not null auto_increment,
-	debridement_id int,
 	tissue_eschar_percentage int,
 	tissue_necrotic_percentage int,
 	tissue_granulation_percentage int,
 	other_wound_tissue_name varchar(50),
 	other_tissue_percentage int,
-	skin int,
+	skin_percentage int,
 	hasScab bit(1),
 	duration int,
+	stage int,
 	length float(4,2),
 	width float(4,2),
 	depth float(4,2),
 	hasDebridement bit(1),
+	debridement_id int,	
 	hasBiopsy bit(1)
 	hasCauterization bit(1),
 	blister varchar(50),
@@ -376,4 +287,125 @@ create table wounds
 		FOREIGN KEY (frequency) REFERENCES frequency (name),		
 	constraint FK_blister
 		FOREIGN KEY (blister) REFERENCES blister (name)		
+);
+
+create table wound_recommendations
+(
+  wound_id int,
+  recommendations_id varchar(50),
+  CONSTRAINT wound_recommendations_pk PRIMARY KEY (wound_id, recommendations_id),
+  CONSTRAINT FK_wound_recommendations
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_recommendations
+      FOREIGN KEY (recommendations_id) REFERENCES recommendations (name)
+);
+
+create table wound_dressings_to_continue
+(
+  wound_id int,
+  dressings_id varchar(50),
+  CONSTRAINT wound_dressings_to_continue_pk PRIMARY KEY (wound_id, dressings_id),
+  CONSTRAINT FK_wound_dressings_to_continue
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_dressings_continue
+      FOREIGN KEY (dressings_id) REFERENCES dressings (name)
+);
+
+create table wound_dressings_to_discontinue
+(
+  wound_id int,
+  dressings_id varchar(50),
+  CONSTRAINT wound_dressings_to_discontinue_pk PRIMARY KEY (wound_id, dressings_id),
+  CONSTRAINT FK_wound_dressings_to_discontinue
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_dressings_discontinue
+      FOREIGN KEY (dressings_id) REFERENCES dressings (name)
+);
+
+create table wound_dressings_to_start
+(
+  wound_id int,
+  dressings_id varchar(50),
+  CONSTRAINT wound_dressings_to_start_pk PRIMARY KEY (wound_id, dressings_id),
+  CONSTRAINT FK_wound_dressings_to_start
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_dressings_start
+      FOREIGN KEY (dressings_id) REFERENCES dressings (name)
+);
+
+create table wound_blister
+(
+  wound_id int,
+  blister_id varchar(50),
+  CONSTRAINT wound_blister_pk PRIMARY KEY (wound_id, blister_id),
+  CONSTRAINT FK_wound_blister
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_blister
+      FOREIGN KEY (blister_id) REFERENCES blister (name)
+);
+
+create table wound_arterials
+(
+  wound_id int,
+  arterial varchar(50),
+  CONSTRAINT wound_arterials_pk PRIMARY KEY (wound_id, arterial),
+  CONSTRAINT FK_wound_arterials
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_arterial
+      FOREIGN KEY (arterial) REFERENCES arterial (name)
+);
+
+create table wound_locations
+(
+  wound_id int,
+  location varchar(50),
+  CONSTRAINT wound_location_pk PRIMARY KEY (wound_id, location),
+  CONSTRAINT FK_wound_location
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_location
+      FOREIGN KEY (location) REFERENCES location (name)
+);
+
+create table wound_descriptions
+(
+  wound_id int,
+  wound_description varchar(50),
+  CONSTRAINT wound_description_pk PRIMARY KEY (wound_id, wound_description),
+  CONSTRAINT FK_wound_descriptions
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_description
+      FOREIGN KEY (wound_description) REFERENCES wound_description (name)
+);
+
+create table wound_objectives
+(
+  wound_id int,
+  wound_objective_id varchar(50),
+  CONSTRAINT wound_objective_pk PRIMARY KEY (wound_id, wound_objective_id),
+  CONSTRAINT FK_wound_objectivess
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_wound_objective
+      FOREIGN KEY (wound_objective_id) REFERENCES wound_objective (name)
+);
+
+create table wound_exudates
+(
+  wound_id int,
+  exudate_id varchar(50),
+  CONSTRAINT wound_exudates_pk PRIMARY KEY (wound_id, exudate_id),
+  CONSTRAINT FK_wound_exudate
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_exudate
+      FOREIGN KEY (exudate_id) REFERENCES exudate (name)
+);
+
+create table wound_periwound
+(
+  wound_id int,
+  periwound_id varchar(50),
+  CONSTRAINT wound_periwound_pk PRIMARY KEY (wound_id, periwound_id),
+  CONSTRAINT FK_wound_periwound
+      FOREIGN KEY (wound_id) REFERENCES wounds (id),
+  CONSTRAINT FK_periwound
+      FOREIGN KEY (periwound_id) REFERENCES periwound (name)
 );
