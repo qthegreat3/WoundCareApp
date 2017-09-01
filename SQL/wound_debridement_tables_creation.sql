@@ -337,10 +337,10 @@ create table wound_blister
 (
   wound_id int,
   blister_id varchar(50),
-  CONSTRAINT wound_blister_pk PRIMARY KEY (wound_id, blister_id),
-  CONSTRAINT FK_wound_blister
+  CONSTRAINT wound_blisters_pk PRIMARY KEY (wound_id, blister_id),
+  CONSTRAINT FK_wound_blisters
       FOREIGN KEY (wound_id) REFERENCES wounds (id),
-  CONSTRAINT FK_blister
+  CONSTRAINT FK_blisters
       FOREIGN KEY (blister_id) REFERENCES blister (name)
 );
 
