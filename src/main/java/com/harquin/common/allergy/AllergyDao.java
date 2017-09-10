@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AllergyDao implements IAllergyDao {
 
+	private static final Logger log = LoggerFactory.getLogger(AllergyDao.class);
+	
 	private SqlSessionFactory sqlSessionFactory;
 	
 	public AllergyDao(SqlSessionFactory sqlSessionFactory)
@@ -17,43 +21,65 @@ public class AllergyDao implements IAllergyDao {
 	}
 	
 	@Override
-	public void insertAllergy(Allergy allergy) {
+	public boolean insertAllergy(Allergy allergy) {
 		
 		if(allergy == null)
 		{
 			throw new IllegalArgumentException("Allergy Cannot Be Null");
 		}
 		
-		SqlSession session = sqlSessionFactory.openSession();
-		AllergyMapper mapper = session.getMapper(AllergyMapper.class);
-		mapper.insertAllergy(allergy);
-		session.close();
+		try(SqlSession session = sqlSessionFactory.openSession();)
+		{
+			AllergyMapper mapper = session.getMapper(AllergyMapper.class);
+			mapper.insertAllergy(allergy);
+		}
+		catch(Exception e)
+		{
+			log.error("Error in insertAllergy", e);
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
-	public List<Allergy> getAllergies() {
-		SqlSession session = sqlSessionFactory.openSession();
-		AllergyMapper mapper = session.getMapper(AllergyMapper.class);
-		
+	public List<Allergy> getAllergies(){
 		List<Allergy> allergies = new ArrayList<>();
 		
-		allergies = mapper.getAllergies();
-		session.close();
+		try(SqlSession session = sqlSessionFactory.openSession();)
+		{
+			AllergyMapper mapper = session.getMapper(AllergyMapper.class);
+						
+			allergies = mapper.getAllergies();
+		}
+		catch(Exception e)
+		{
+			log.error("Error in getAllergies", e);
+		}
+
 		return allergies;
 	}
 
 	@Override
-	public void deleteAllergy(Allergy allergy) {
+	public boolean deleteAllergy(Allergy allergy) {
 		if(allergy == null)
 		{
 			throw new IllegalArgumentException("Allergy Cannot Be Null");
 		}
 		
-		SqlSession session = sqlSessionFactory.openSession();
-		AllergyMapper mapper = session.getMapper(AllergyMapper.class);
+		try(SqlSession session = sqlSessionFactory.openSession();)
+		{
+			AllergyMapper mapper = session.getMapper(AllergyMapper.class);
+			
+			mapper.deleteAllergy(allergy);
+		}
+		catch (Exception e)
+		{
+			log.error("Error in deleteAllergy", e);
+			return false;
+		}
 		
-		mapper.deleteAllergy(allergy);
-		session.close();
+		return true;
 	}
 
 }

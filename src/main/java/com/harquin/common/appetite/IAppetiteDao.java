@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public interface IAppetiteDao {
-	public void insertAppetite(Appetite appetite);
+	public boolean insertAppetite(Appetite appetite);
 	public List<Appetite> getAppetites();
-	public void deleteAppetite(Appetite appetite);
+	public boolean deleteAppetite(Appetite appetite);
 }

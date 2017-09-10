@@ -35,4 +35,14 @@ public class AllergyDaoTest {
 		assertTrue(allergyDao.getAllergies().isEmpty());
 	}
 	
+	@Test
+	public void testExceptions()
+	{
+		Allergy allergy = new Allergy("testAllergy");
+		allergyDao.insertAllergy(allergy);
+		allergyDao.insertAllergy(allergy);
+		allergyDao.deleteAllergy(allergy);
+		allergyDao.deleteAllergy(allergy);
+	}
+	
 }
