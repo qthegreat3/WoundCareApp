@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.pneumococcalvaccine.PneumococcalVaccineMapper">
+	<resultMap type="com.harquin.common.pneumococcalvaccine.PneumococcalVaccine" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getPneumococcalVaccines" resultMap="result">
+		select name from pneumococcal_vaccine;
+	</select>
+	
+	<insert id="insertPneumococcalVaccine" parameterType="com.harquin.common.pneumococcalvaccine.PneumococcalVaccine">
+		insert into pneumococcal_vaccine (name) value (#{name});
+	</insert>
+	
+	<delete id="deletePneumococcalVaccine" parameterType="com.harquin.common.pneumococcalvaccine.PneumococcalVaccine">
+		delete from pneumococcal_vaccine where name = #{name};
+	</delete>
+</mapper>

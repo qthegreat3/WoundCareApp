@@ -41,7 +41,7 @@ public class AppetiteDao implements IAppetiteDao{
 		try(SqlSession session = sqlSessionFactory.openSession();)
 		{
 			AppetiteMapper mapper = session.getMapper(AppetiteMapper.class);			
-			mapper.getAppetites();
+			appetiteList = mapper.getAppetites();
 		}
 		catch (Exception e)
 		{

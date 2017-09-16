@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.pedalpulsedescription.PedalPulseDescriptionMapper">
+	<resultMap type="com.harquin.common.pedalpulsedescription.PedalPulseDescription" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getPedalPulseDescriptions" resultMap="result">
+		select name from pedal_pulse_description;
+	</select>
+	
+	<insert id="insertPedalPulseDescription" parameterType="com.harquin.common.pedalpulsedescription.PedalPulseDescription">
+		insert into pedal_pulse_description (name) value (#{name});
+	</insert>
+	
+	<delete id="deletePedalPulseDescription" parameterType="com.harquin.common.pedalpulsedescription.PedalPulseDescription">
+		delete from pedal_pulse_description where name = #{name};
+	</delete>
+</mapper>

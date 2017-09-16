@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.nodebridementreason.NoDebridementReasonMapper">
+	<resultMap type="com.harquin.common.nodebridementreason.NoDebridementReason" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getNoDebridementReasons" resultMap="result">
+		select name from no_debridement_reasons;
+	</select>
+	
+	<insert id="insertNoDebridementReason" parameterType="com.harquin.common.nodebridementreason.NoDebridementReason">
+		insert into no_debridement_reasons (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteNoDebridementReason" parameterType="com.harquin.common.nodebridementreason.NoDebridementReason">
+		delete from no_debridement_reasons where name = #{name};
+	</delete>
+</mapper>

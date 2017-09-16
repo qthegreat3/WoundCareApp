@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.inflammatory.InflammatoryMapper">
+	<resultMap type="com.harquin.common.inflammatory.Inflammatory" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getInflammatorys" resultMap="result">
+		select name from inflammatory;
+	</select>
+	
+	<insert id="insertInflammatory" parameterType="com.harquin.common.inflammatory.Inflammatory">
+		insert into inflammatory (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteInflammatory" parameterType="com.harquin.common.inflammatory.Inflammatory">
+		delete from inflammatory where name = #{name};
+	</delete>
+</mapper>

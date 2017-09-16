@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.blister.BlisterMapper">
+	<resultMap type="com.harquin.common.blister.Blister" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getBlisters" resultMap="result">
+		select name from blister;
+	</select>
+	
+	<insert id="insertBlister" parameterType="com.harquin.common.blister.Blister">
+		insert into blister (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteBlister" parameterType="com.harquin.common.blister.Blister">
+		delete from blister where name = #{name};
+	</delete>
+</mapper>

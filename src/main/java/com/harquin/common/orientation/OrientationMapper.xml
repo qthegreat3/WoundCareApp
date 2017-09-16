@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.orientation.OrientationMapper">
+	<resultMap type="com.harquin.common.orientation.Orientation" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getOrientations" resultMap="result">
+		select name from orientations;
+	</select>
+	
+	<insert id="insertOrientation" parameterType="com.harquin.common.orientation.Orientation">
+		insert into orientations (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteOrientation" parameterType="com.harquin.common.orientation.Orientation">
+		delete from orientations where name = #{name};
+	</delete>
+</mapper>

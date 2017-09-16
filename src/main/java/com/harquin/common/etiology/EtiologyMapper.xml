@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.etiology.EtiologyMapper">
+	<resultMap type="com.harquin.common.etiology.Etiology" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getEtiologys" resultMap="result">
+		select name from etiologies;
+	</select>
+	
+	<insert id="insertEtiology" parameterType="com.harquin.common.etiology.Etiology">
+		insert into etiologies (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteEtiology" parameterType="com.harquin.common.etiology.Etiology">
+		delete from etiologies where name = #{name};
+	</delete>
+</mapper>

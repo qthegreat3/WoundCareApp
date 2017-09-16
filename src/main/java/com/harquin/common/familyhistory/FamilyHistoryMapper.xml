@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.familyhistory.FamilyHistoryMapper">
+	<resultMap type="com.harquin.common.familyhistory.FamilyHistory" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getFamilyHistorys" resultMap="result">
+		select name from family_history;
+	</select>
+	
+	<insert id="insertFamilyHistory" parameterType="com.harquin.common.familyhistory.FamilyHistory">
+		insert into family_history (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteFamilyHistory" parameterType="com.harquin.common.familyhistory.FamilyHistory">
+		delete from family_history where name = #{name};
+	</delete>
+</mapper>

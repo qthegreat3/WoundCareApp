@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.exudate.ExudateMapper">
+	<resultMap type="com.harquin.common.exudate.Exudate" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getExudates" resultMap="result">
+		select name from exudate;
+	</select>
+	
+	<insert id="insertExudate" parameterType="com.harquin.common.exudate.Exudate">
+		insert into exudate (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteExudate" parameterType="com.harquin.common.exudate.Exudate">
+		delete from exudate where name = #{name};
+	</delete>
+</mapper>

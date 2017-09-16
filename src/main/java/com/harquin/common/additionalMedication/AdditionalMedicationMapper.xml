@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.additionalMedication.AdditionalMedicationMapper">
+	<resultMap type="com.harquin.common.additionalMedication.AdditionalMedication" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getAdditionalMedications" resultMap="result">
+		select name from additional_medications;
+	</select>
+	
+	<insert id="insertAdditionalMedication" parameterType="com.harquin.common.additionalMedication.AdditionalMedication">
+		insert into additional_medications (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteAdditionalMedication" parameterType="com.harquin.common.additionalMedication.AdditionalMedication">
+		delete from additional_medications where name = #{name};
+	</delete>
+</mapper>

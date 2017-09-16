@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.riskbenefit.RiskBenefitMapper">
+	<resultMap type="com.harquin.common.riskbenefit.RiskBenefit" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getRiskBenefits" resultMap="result">
+		select name from risk_benefits;
+	</select>
+	
+	<insert id="insertRiskBenefit" parameterType="com.harquin.common.riskbenefit.RiskBenefit">
+		insert into risk_benefits (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteRiskBenefit" parameterType="com.harquin.common.riskbenefit.RiskBenefit">
+		delete from risk_benefits where name = #{name};
+	</delete>
+</mapper>

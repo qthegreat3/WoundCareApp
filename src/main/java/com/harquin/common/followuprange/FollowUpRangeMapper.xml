@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.followuprange.FollowUpRangeMapper">
+	<resultMap type="com.harquin.common.followuprange.FollowUpRange" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getFollowUpRanges" resultMap="result">
+		select name from follow_up_ranges;
+	</select>
+	
+	<insert id="insertFollowUpRange" parameterType="com.harquin.common.followuprange.FollowUpRange">
+		insert into follow_up_ranges (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteFollowUpRange" parameterType="com.harquin.common.followuprange.FollowUpRange">
+		delete from follow_up_ranges where name = #{name};
+	</delete>
+</mapper>

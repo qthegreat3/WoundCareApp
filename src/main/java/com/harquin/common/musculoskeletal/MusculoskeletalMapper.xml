@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.musculoskeletal.MusculoskeletalMapper">
+	<resultMap type="com.harquin.common.musculoskeletal.Musculoskeletal" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getMusculoskeletals" resultMap="result">
+		select name from musculoskeletal;
+	</select>
+	
+	<insert id="insertMusculoskeletal" parameterType="com.harquin.common.musculoskeletal.Musculoskeletal">
+		insert into musculoskeletal (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteMusculoskeletal" parameterType="com.harquin.common.musculoskeletal.Musculoskeletal">
+		delete from musculoskeletal where name = #{name};
+	</delete>
+</mapper>

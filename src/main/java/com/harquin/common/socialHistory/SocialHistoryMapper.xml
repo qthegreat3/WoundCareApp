@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.socialHistory.SocialHistoryMapper">
+	<resultMap type="com.harquin.common.socialHistory.SocialHistory" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getSocialHistorys" resultMap="result">
+		select name from social_history;
+	</select>
+	
+	<insert id="insertSocialHistory" parameterType="com.harquin.common.socialHistory.SocialHistory">
+		insert into social_history (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteSocialHistory" parameterType="com.harquin.common.socialHistory.SocialHistory">
+		delete from social_history where name = #{name};
+	</delete>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.edema.EdemaMapper">
+	<resultMap type="com.harquin.common.edema.Edema" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getEdemas" resultMap="result">
+		select name from edema;
+	</select>
+	
+	<insert id="insertEdema" parameterType="com.harquin.common.edema.Edema">
+		insert into edema (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteEdema" parameterType="com.harquin.common.edema.Edema">
+		delete from edema where name = #{name};
+	</delete>
+</mapper>

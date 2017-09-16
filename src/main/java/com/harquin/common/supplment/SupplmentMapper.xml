@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.supplment.SupplmentMapper">
+	<resultMap type="com.harquin.common.supplment.Supplment" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getSupplments" resultMap="result">
+		select name from supplments;
+	</select>
+	
+	<insert id="insertSupplment" parameterType="com.harquin.common.supplment.Supplment">
+		insert into supplments (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteSupplment" parameterType="com.harquin.common.supplment.Supplment">
+		delete from supplments where name = #{name};
+	</delete>
+</mapper>

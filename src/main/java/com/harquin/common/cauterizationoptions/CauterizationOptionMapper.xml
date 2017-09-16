@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.cauterizationoptions.CauterizationOptionMapper">
+	<resultMap type="com.harquin.common.cauterizationoptions.CauterizationOption" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getCauterizationOptions" resultMap="result">
+		select name from cauterization_options;
+	</select>
+	
+	<insert id="insertCauterizationOption" parameterType="com.harquin.common.cauterizationoptions.CauterizationOption">
+		insert into cauterization_options (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteCauterizationOption" parameterType="com.harquin.common.cauterizationoptions.CauterizationOption">
+		delete from cauterization_options where name = #{name};
+	</delete>
+</mapper>

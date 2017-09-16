@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.gender.GenderMapper">
+	<resultMap type="com.harquin.common.gender.Gender" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getGenders" resultMap="result">
+		select name from gender;
+	</select>
+	
+	<insert id="insertGender" parameterType="com.harquin.common.gender.Gender">
+		insert into gender (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteGender" parameterType="com.harquin.common.gender.Gender">
+		delete from gender where name = #{name};
+	</delete>
+</mapper>

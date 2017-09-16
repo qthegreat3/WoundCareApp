@@ -10,14 +10,14 @@ import com.harquin.common.bed.Bed;
 import com.harquin.common.chair.Chair;
 import com.harquin.common.document.Document;
 import com.harquin.common.facesheet.FaceSheet;
-import com.harquin.common.facility.Facility;
 import com.harquin.common.feet.Feet;
 import com.harquin.common.gastrointestinal.GastroIntestinal;
 import com.harquin.common.language.Language;
+import com.harquin.common.location.Location;
 import com.harquin.common.muscoloskeletal.Muscoloskeletal;
 import com.harquin.common.pastmedicalhistory.PastMedicalHistory;
 import com.harquin.common.referringphysician.ReferringPhysician;
-import com.harquin.common.socialhisory.SocialHistory;
+import com.harquin.common.socialHistory.SocialHistory;
 import com.harquin.common.suppliments.Suppliments;
 import com.harquin.common.wound.Wound;
 
@@ -52,7 +52,7 @@ public class Patient {
 	private ReferringPhysician referringPhysician;
 	private List<SocialHistory> socialHistories;
 	private List<Suppliments> suppliments;
-	private Facility facility;
+	private Location facility;
 	
 	public Patient(String firstName, String lastName)
 	{
@@ -213,11 +213,11 @@ public class Patient {
 		this.referringPhysician = referringPhysician;
 	}
 
-	public Facility getFacility() {
+	public Location getFacility() {
 		return facility;
 	}
 
-	public void setFacility(Facility facility) {
+	public void setFacility(Location facility) {
 		this.facility = facility;
 	}
 

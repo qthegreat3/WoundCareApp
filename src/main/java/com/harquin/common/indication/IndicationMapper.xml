@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.indication.IndicationMapper">
+	<resultMap type="com.harquin.common.indication.Indication" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getIndications" resultMap="result">
+		select name from indications;
+	</select>
+	
+	<insert id="insertIndication" parameterType="com.harquin.common.indication.Indication">
+		insert into indications (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteIndication" parameterType="com.harquin.common.indication.Indication">
+		delete from indications where name = #{name};
+	</delete>
+</mapper>

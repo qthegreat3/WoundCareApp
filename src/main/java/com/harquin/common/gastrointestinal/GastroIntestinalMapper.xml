@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.gastrointestinal.GastroIntestinalMapper">
+	<resultMap type="com.harquin.common.gastrointestinal.GastroIntestinal" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getGastroIntestinals" resultMap="result">
+		select name from gastural_intestinal_types;
+	</select>
+	
+	<insert id="insertGastroIntestinal" parameterType="com.harquin.common.gastrointestinal.GastroIntestinal">
+		insert into gastural_intestinal_types (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteGastroIntestinal" parameterType="com.harquin.common.gastrointestinal.GastroIntestinal">
+		delete from gastural_intestinal_types where name = #{name};
+	</delete>
+</mapper>

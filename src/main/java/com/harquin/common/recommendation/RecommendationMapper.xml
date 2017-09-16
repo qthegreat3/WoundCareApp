@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.recommendation.RecommendationMapper">
+	<resultMap type="com.harquin.common.recommendation.Recommendation" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getRecommendations" resultMap="result">
+		select name from recommendations;
+	</select>
+	
+	<insert id="insertRecommendation" parameterType="com.harquin.common.recommendation.Recommendation">
+		insert into recommendations (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteRecommendation" parameterType="com.harquin.common.recommendation.Recommendation">
+		delete from recommendations where name = #{name};
+	</delete>
+</mapper>

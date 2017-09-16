@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.location.LocationMapper">
+	<resultMap type="com.harquin.common.location.Location" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getLocations" resultMap="result">
+		select name from locations;
+	</select>
+	
+	<insert id="insertLocation" parameterType="com.harquin.common.location.Location">
+		insert into locations (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteLocation" parameterType="com.harquin.common.location.Location">
+		delete from locations where name = #{name};
+	</delete>
+</mapper>

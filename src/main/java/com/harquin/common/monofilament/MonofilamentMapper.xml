@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.monofilament.MonofilamentMapper">
+	<resultMap type="com.harquin.common.monofilament.Monofilament" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getMonofilaments" resultMap="result">
+		select name from monofilament;
+	</select>
+	
+	<insert id="insertMonofilament" parameterType="com.harquin.common.monofilament.Monofilament">
+		insert into monofilament (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteMonofilament" parameterType="com.harquin.common.monofilament.Monofilament">
+		delete from monofilament where name = #{name};
+	</delete>
+</mapper>

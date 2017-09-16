@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.sourceofhistory.SourceOfHistoryMapper">
+	<resultMap type="com.harquin.common.sourceofhistory.SourceOfHistory" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getSourceOfHistorys" resultMap="result">
+		select name from source_of_history;
+	</select>
+	
+	<insert id="insertSourceOfHistory" parameterType="com.harquin.common.sourceofhistory.SourceOfHistory">
+		insert into source_of_history (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteSourceOfHistory" parameterType="com.harquin.common.sourceofhistory.SourceOfHistory">
+		delete from source_of_history where name = #{name};
+	</delete>
+</mapper>

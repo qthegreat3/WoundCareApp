@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.otherwoundtissue.OtherWoundTissueMapper">
+	<resultMap type="com.harquin.common.otherwoundtissue.OtherWoundTissue" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getOtherWoundTissues" resultMap="result">
+		select name from other_wound_tissue;
+	</select>
+	
+	<insert id="insertOtherWoundTissue" parameterType="com.harquin.common.otherwoundtissue.OtherWoundTissue">
+		insert into other_wound_tissue (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteOtherWoundTissue" parameterType="com.harquin.common.otherwoundtissue.OtherWoundTissue">
+		delete from other_wound_tissue where name = #{name};
+	</delete>
+</mapper>

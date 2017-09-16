@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.anesthesia.AnesthesiaMapper">
+	<resultMap type="com.harquin.common.anesthesia.Anesthesia" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getAnesthesias" resultMap="result">
+		select name from anesthesia;
+	</select>
+	
+	<insert id="insertAnesthesia" parameterType="com.harquin.common.anesthesia.Anesthesia">
+		insert into anesthesia (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteAnesthesia" parameterType="com.harquin.common.anesthesia.Anesthesia">
+		delete from anesthesia where name = #{name};
+	</delete>
+</mapper>

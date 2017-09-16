@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.race.RaceMapper">
+	<resultMap type="com.harquin.common.race.Race" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getRaces" resultMap="result">
+		select name from races;
+	</select>
+	
+	<insert id="insertRace" parameterType="com.harquin.common.race.Race">
+		insert into races (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteRace" parameterType="com.harquin.common.race.Race">
+		delete from races where name = #{name};
+	</delete>
+</mapper>

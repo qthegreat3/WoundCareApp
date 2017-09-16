@@ -16,12 +16,12 @@ public class PastMedicalHistory {
 		
 		if(name == null)
 		{
-			throw new IllegalArgumentException("Past Medical History Name Cannot Be Null");
+			throw new IllegalArgumentException("PastMedicalHistory Name Cannot Be Null");
 		}
 		
 		if(name.isEmpty())
 		{
-			throw new IllegalArgumentException("Past Medical History Name Cannot Be Empty");
+			throw new IllegalArgumentException("PastMedicalHistory Name Cannot Be Empty");
 		}
 		
 		this.name = name;

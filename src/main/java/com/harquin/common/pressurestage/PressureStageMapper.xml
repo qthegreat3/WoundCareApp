@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.pressurestage.PressureStageMapper">
+	<resultMap type="com.harquin.common.pressurestage.PressureStage" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getPressureStages" resultMap="result">
+		select name from pressure_stage;
+	</select>
+	
+	<insert id="insertPressureStage" parameterType="com.harquin.common.pressurestage.PressureStage">
+		insert into pressure_stage (name) value (#{name});
+	</insert>
+	
+	<delete id="deletePressureStage" parameterType="com.harquin.common.pressurestage.PressureStage">
+		delete from pressure_stage where name = #{name};
+	</delete>
+</mapper>

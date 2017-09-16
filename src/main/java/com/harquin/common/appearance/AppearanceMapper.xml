@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.appearance.AppearanceMapper">
+	<resultMap type="com.harquin.common.appearance.Appearance" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getAppearances" resultMap="result">
+		select name from appearances;
+	</select>
+	
+	<insert id="insertAppearance" parameterType="com.harquin.common.appearance.Appearance">
+		insert into appearances (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteAppearance" parameterType="com.harquin.common.appearance.Appearance">
+		delete from appearances where name = #{name};
+	</delete>
+</mapper>

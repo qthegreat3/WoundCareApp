@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.foottemperature.FootTemperatureMapper">
+	<resultMap type="com.harquin.common.foottemperature.FootTemperature" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getFootTemperatures" resultMap="result">
+		select name from foot_temperature;
+	</select>
+	
+	<insert id="insertFootTemperature" parameterType="com.harquin.common.foottemperature.FootTemperature">
+		insert into foot_temperature (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteFootTemperature" parameterType="com.harquin.common.foottemperature.FootTemperature">
+		delete from foot_temperature where name = #{name};
+	</delete>
+</mapper>

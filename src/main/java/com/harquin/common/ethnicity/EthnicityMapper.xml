@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.ethnicity.EthnicityMapper">
+	<resultMap type="com.harquin.common.ethnicity.Ethnicity" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getEthnicitys" resultMap="result">
+		select name from ethnicities;
+	</select>
+	
+	<insert id="insertEthnicity" parameterType="com.harquin.common.ethnicity.Ethnicity">
+		insert into ethnicities (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteEthnicity" parameterType="com.harquin.common.ethnicity.Ethnicity">
+		delete from ethnicities where name = #{name};
+	</delete>
+</mapper>

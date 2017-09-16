@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.chair.ChairMapper">
+	<resultMap type="com.harquin.common.chair.Chair" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getChairs" resultMap="result">
+		select name from chair_types;
+	</select>
+	
+	<insert id="insertChair" parameterType="com.harquin.common.chair.Chair">
+		insert into chair_types (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteChair" parameterType="com.harquin.common.chair.Chair">
+		delete from chair_types where name = #{name};
+	</delete>
+</mapper>

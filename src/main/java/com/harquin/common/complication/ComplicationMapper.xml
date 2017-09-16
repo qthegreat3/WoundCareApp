@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.complication.ComplicationMapper">
+	<resultMap type="com.harquin.common.complication.Complication" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getComplications" resultMap="result">
+		select name from complications;
+	</select>
+	
+	<insert id="insertComplication" parameterType="com.harquin.common.complication.Complication">
+		insert into complications (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteComplication" parameterType="com.harquin.common.complication.Complication">
+		delete from complications where name = #{name};
+	</delete>
+</mapper>

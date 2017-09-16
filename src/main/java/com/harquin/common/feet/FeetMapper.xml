@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.feet.FeetMapper">
+	<resultMap type="com.harquin.common.feet.Feet" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getFeets" resultMap="result">
+		select name from feet;
+	</select>
+	
+	<insert id="insertFeet" parameterType="com.harquin.common.feet.Feet">
+		insert into feet (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteFeet" parameterType="com.harquin.common.feet.Feet">
+		delete from feet where name = #{name};
+	</delete>
+</mapper>

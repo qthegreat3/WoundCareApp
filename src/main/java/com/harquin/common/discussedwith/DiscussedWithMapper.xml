@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.discussedwith.DiscussedWithMapper">
+	<resultMap type="com.harquin.common.discussedwith.DiscussedWith" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getDiscussedWiths" resultMap="result">
+		select name from discussed_with;
+	</select>
+	
+	<insert id="insertDiscussedWith" parameterType="com.harquin.common.discussedwith.DiscussedWith">
+		insert into discussed_with (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteDiscussedWith" parameterType="com.harquin.common.discussedwith.DiscussedWith">
+		delete from discussed_with where name = #{name};
+	</delete>
+</mapper>

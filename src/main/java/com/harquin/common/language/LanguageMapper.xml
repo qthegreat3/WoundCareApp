@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.language.LanguageMapper">
+	<resultMap type="com.harquin.common.language.Language" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getLanguages" resultMap="result">
+		select name from languages;
+	</select>
+	
+	<insert id="insertLanguage" parameterType="com.harquin.common.language.Language">
+		insert into languages (name) value (#{name});
+	</insert>
+	
+	<delete id="deleteLanguage" parameterType="com.harquin.common.language.Language">
+		delete from languages where name = #{name};
+	</delete>
+</mapper>

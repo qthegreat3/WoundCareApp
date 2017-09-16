@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.periwound.PeriwoundMapper">
+	<resultMap type="com.harquin.common.periwound.Periwound" id="result">
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="getPeriwounds" resultMap="result">
+		select name from periwound;
+	</select>
+	
+	<insert id="insertPeriwound" parameterType="com.harquin.common.periwound.Periwound">
+		insert into periwound (name) value (#{name});
+	</insert>
+	
+	<delete id="deletePeriwound" parameterType="com.harquin.common.periwound.Periwound">
+		delete from periwound where name = #{name};
+	</delete>
+</mapper>
