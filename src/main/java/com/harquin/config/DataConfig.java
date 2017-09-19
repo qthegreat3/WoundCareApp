@@ -17,6 +17,8 @@ import com.harquin.common.allergy.AllergyDao;
 import com.harquin.common.allergy.IAllergyDao;
 import com.harquin.common.exudate.ExudateDao;
 import com.harquin.common.exudate.IExudateDao;
+import com.harquin.common.fallriskassessment.FallRiskAssessmentDao;
+import com.harquin.common.fallriskassessment.IFallRiskAssessmentDao;
 import com.harquin.common.familyhistory.FamilyHistoryDao;
 import com.harquin.common.familyhistory.IFamilyHistoryDao;
 import com.harquin.common.followuprange.FollowUpRangeDao;
@@ -354,5 +356,13 @@ public class DataConfig {
 		ITestProgressDao testProgressDao = new TestProgressDao(sqlSessionFactory());
 		
 		 return testProgressDao;
+	}
+	
+	@Bean
+	public IFallRiskAssessmentDao fallRiskAssessmentDao() throws Exception
+	{
+		IFallRiskAssessmentDao fallRiskAssessmentDao = new FallRiskAssessmentDao(sqlSessionFactory());
+		
+		 return fallRiskAssessmentDao;
 	}
 }

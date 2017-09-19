@@ -17,6 +17,8 @@ import com.harquin.common.allergy.AllergyDao;
 import com.harquin.common.allergy.IAllergyDao;
 import com.harquin.common.exudate.ExudateDao;
 import com.harquin.common.exudate.IExudateDao;
+import com.harquin.common.fallriskassessment.FallRiskAssessmentDao;
+import com.harquin.common.fallriskassessment.IFallRiskAssessmentDao;
 import com.harquin.common.familyhistory.FamilyHistoryDao;
 import com.harquin.common.familyhistory.IFamilyHistoryDao;
 import com.harquin.common.followuprange.FollowUpRangeDao;
@@ -35,6 +37,8 @@ import com.harquin.common.instrument.IInstrumentDao;
 import com.harquin.common.instrument.InstrumentDao;
 import com.harquin.common.language.ILanguageDao;
 import com.harquin.common.language.LanguageDao;
+import com.harquin.common.location.ILocationDao;
+import com.harquin.common.location.LocationDao;
 import com.harquin.common.monofilament.IMonofilamentDao;
 import com.harquin.common.monofilament.MonofilamentDao;
 import com.harquin.common.mood.IMoodDao;
@@ -51,6 +55,8 @@ import com.harquin.common.otherwoundtissue.IOtherWoundTissueDao;
 import com.harquin.common.otherwoundtissue.OtherWoundTissueDao;
 import com.harquin.common.pastmedicalhistory.IPastMedicalHistoryDao;
 import com.harquin.common.pastmedicalhistory.PastMedicalHistoryDao;
+import com.harquin.common.patient.IPatientDao;
+import com.harquin.common.patient.PatientDao;
 import com.harquin.common.pedalpulsedescription.IPedalPulseDescriptionDao;
 import com.harquin.common.pedalpulsedescription.PedalPulseDescriptionDao;
 import com.harquin.common.periwound.IPeriwoundDao;
@@ -352,5 +358,29 @@ public class TestDataConfig {
 		ITestProgressDao testProgressDao = new TestProgressDao(sqlSessionFactory());
 		
 		 return testProgressDao;
+	}
+	
+	@Bean
+	public IFallRiskAssessmentDao fallRiskAssessmentDao() throws Exception
+	{
+		IFallRiskAssessmentDao fallRiskAssessmentDao = new FallRiskAssessmentDao(sqlSessionFactory());
+		
+		 return fallRiskAssessmentDao;
+	}
+	
+	@Bean
+	public IPatientDao patientDao() throws Exception
+	{
+		IPatientDao patientDao = new PatientDao(sqlSessionFactory());
+		
+		return patientDao;
+	}
+	
+	@Bean
+	public ILocationDao locationDao() throws Exception
+	{
+		ILocationDao locationDao = new LocationDao(sqlSessionFactory());
+		
+		return locationDao;
 	}
 }
