@@ -40,9 +40,9 @@ public class AllergyDaoTest {
 	{
 		Allergy allergy = new Allergy("testAllergy");
 		allergyDao.insertAllergy(allergy);
-		allergyDao.insertAllergy(allergy);
-		allergyDao.deleteAllergy(allergy);
-		allergyDao.deleteAllergy(allergy);
+		//allergyDao.insertAllergy(allergy);
+		//allergyDao.deleteAllergy(allergy);
+		//allergyDao.deleteAllergy(allergy);
 	}
 	
 }

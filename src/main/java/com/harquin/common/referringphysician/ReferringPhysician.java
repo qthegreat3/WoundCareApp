@@ -12,17 +12,16 @@ public class ReferringPhysician {
 		setLastName(lastName);
 	}
 
+	public ReferringPhysician()
+	{
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
-		
-		if(id <= 0)
-		{
-			throw new IllegalArgumentException("Id Must Be Positive, Nonzero Number");
-		}
-		
 		this.id = id;
 	}
 

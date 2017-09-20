@@ -56,7 +56,9 @@ import com.harquin.common.otherwoundtissue.OtherWoundTissueDao;
 import com.harquin.common.pastmedicalhistory.IPastMedicalHistoryDao;
 import com.harquin.common.pastmedicalhistory.PastMedicalHistoryDao;
 import com.harquin.common.patient.IPatientDao;
+import com.harquin.common.patient.IPatientDescriptionDao;
 import com.harquin.common.patient.PatientDao;
+import com.harquin.common.patient.PatientDescriptionDao;
 import com.harquin.common.pedalpulsedescription.IPedalPulseDescriptionDao;
 import com.harquin.common.pedalpulsedescription.PedalPulseDescriptionDao;
 import com.harquin.common.periwound.IPeriwoundDao;
@@ -382,5 +384,13 @@ public class TestDataConfig {
 		ILocationDao locationDao = new LocationDao(sqlSessionFactory());
 		
 		return locationDao;
+	}
+	
+	@Bean
+	public IPatientDescriptionDao patientDescriptionDao() throws Exception
+	{
+		IPatientDescriptionDao patientDescriptionDao = new PatientDescriptionDao(sqlSessionFactory());
+		
+		return patientDescriptionDao;
 	}
 }

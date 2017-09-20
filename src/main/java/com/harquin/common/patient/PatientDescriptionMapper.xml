@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harquin.common.patient.PatientDescriptionMapper">
+	<resultMap type="com.harquin.common.patient.PatientDescription" id="result">
+		<id property="patientId" column="id"/> 		
+		<result property="firstName" column="firstName"/>
+		<result property="lastName" column="lastName"/>
+		<result property="roomNumber" column="roomNumber"/>
+		<result property="gender" column="gender"/>		
+		<result property="dateOfBirth" column="dateOfBirth"/>
+		<result property="preferredLanguage" column="preferredLanguage"/>
+		<result property="ethniciy" column="ethniciy" />
+		<result property="race" column="race" />
+		<result property="isMedicationReviewed" column="isMedicationReviewed" />
+		<result property="isEmailPreferredContactMethod" column="isEmailPreferredContactMethod" />
+		<!-- <result property="anticoagulants" column="anticoagulant" /> -->
+		<result property="isDiabetic" column="isDiabetic" />
+		<!--<result property="pastMedicalHistory" column="pastMedicalHistory" />
+		<result property="familyHistory" column="familyHistory" /> -->
+		<result property="pneumococcalVaccine" column="pneumococcalVaccine" />
+		<result property="fallRiskAssessment" column="fallRiskAssessment" />
+		<!--  <result property="socialHistory" column="socialHistory" />
+		<result property="gastroIntestinal" column="gastroIntestinal" />-->
+		<result property="appetite" column="appetite" />
+		<!-- <result property="suppliments" column="suppliments" />
+		<result property="muscoloskeletal" column="muscoloskeletal" /> -->
+		<result property="bed" column="bed" />
+		<!-- <result property="chair" column="chair" />
+		<result property="feet" column="feet" /> -->
+		<result property="isPatientReviewed" column="isPatientReviewed" />
+		<association property="referringPhysician" resultMap="ReferringPhysician"/>
+		<collection property="allergies" javaType="ArrayList" column="allergies" ofType="String">
+			<result property="allergies" column = "allergies"/>			
+		</collection>
+	</resultMap>
+	
+	<resultMap type="com.harquin.common.referringphysician.ReferringPhysician" id="ReferringPhysician">
+	    <result property="id" column="rp_id"/>
+	    <result property="firstName" column="rp_firstName"/>
+	    <result property="lastName" column="rp_lastName"/>  
+	</resultMap>	
+	
+	
+	<select id="getPatientDescriptionById" parameterType="int" resultMap="result">
+		select p.id, p.firstName, p.lastName, p.roomNumber, p.lastVisitDate, p.followUpVisitDate, p.location, p.gender, p.dateOfBirth, p.preferredLanguage,
+		p.ethnicity, p.race, p.isMedicationReviewed, p.isEmailPreferredContactMethod, p.isDiabetic, p.pneumococcalVaccine, p.fallRiskAssessment, p.appetite,
+		p.bed, p.isPatientReviewed, 
+		rp.id as rp_id, rp.firstName as rp_firstName, rp.lastName as rp_lastName,
+		pa.allergy as allergies   
+		from patient as p 
+		join patient_allergies as pa on p.id = pa.patientId
+		join referring_physicians as rp on p.referringPhysicianId = rp.id  
+		where p.id = #{id}
+	</select>
+	
+	<update id="updatePatientDescription" parameterType="com.harquin.common.patient.PatientDescription">
+		update patient set firstName = #{firstName}, lastName = #{lastName}, isActive = #{isActive}, lastVisitDate = #{lastVisitDate}, followUpVisitDate = #{followUpVisitDate}, location = #{location} where id = #{id}
+	</update>
+	
+	<insert id="insertPatientDescription" useGeneratedKeys="true" keyProperty="id" parameterType="com.harquin.common.patient.PatientDescription">
+		insert into patient (firstName, lastName, isActive, lastVisitDate, followUpVisitDate, location) values (#{firstName}, #{lastName}, #{isActive}, #{lastVisitDate}, #{followUpVisitDate}, #{location});
+	</insert>
+	
+	<delete id="deletePatientDescription" parameterType="com.harquin.common.patient.PatientDescription">
+		delete from patient where id = #{id};
+	</delete>
+</mapper>
