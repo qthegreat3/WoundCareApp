@@ -10,59 +10,198 @@
 		<result property="gender" column="gender"/>		
 		<result property="dateOfBirth" column="dateOfBirth"/>
 		<result property="preferredLanguage" column="preferredLanguage"/>
-		<result property="ethniciy" column="ethniciy" />
+		<result property="ethnicity" column="ethnicity" />
 		<result property="race" column="race" />
 		<result property="isMedicationReviewed" column="isMedicationReviewed" />
 		<result property="isEmailPreferredContactMethod" column="isEmailPreferredContactMethod" />
-		<!-- <result property="anticoagulants" column="anticoagulant" /> -->
 		<result property="isDiabetic" column="isDiabetic" />
 		<!--<result property="pastMedicalHistory" column="pastMedicalHistory" />
 		<result property="familyHistory" column="familyHistory" /> -->
 		<result property="pneumococcalVaccine" column="pneumococcalVaccine" />
 		<result property="fallRiskAssessment" column="fallRiskAssessment" />
-		<!--  <result property="socialHistory" column="socialHistory" />
-		<result property="gastroIntestinal" column="gastroIntestinal" />-->
+		<result property="socialHistory" column="socialHistory" />
 		<result property="appetite" column="appetite" />
-		<!-- <result property="suppliments" column="suppliments" />
-		<result property="muscoloskeletal" column="muscoloskeletal" /> -->
 		<result property="bed" column="bed" />
-		<!-- <result property="chair" column="chair" />
-		<result property="feet" column="feet" /> -->
 		<result property="isPatientReviewed" column="isPatientReviewed" />
-		<association property="referringPhysician" resultMap="ReferringPhysician"/>
+		<result property="referringPhysicianLastName" column="referringPhysicianLastName" />
+		<result property="referringPhysicianFirstName" column="referringPhysicianFirstName"/>
 		<collection property="allergies" javaType="ArrayList" column="allergies" ofType="String">
 			<result property="allergies" column = "allergies"/>			
 		</collection>
+		<collection property="anticoagulants" javaType="ArrayList" column="anticoagulants" ofType="String">
+			<result property="anticoagulants" column = "anticoagulants"/>			
+		</collection>
+			<collection property="pastMedicalHistory" javaType="ArrayList" column="pastMedicalHistory" ofType="String">
+			<result property="pastMedicalHistory" column = "pastMedicalHistory"/>			
+		</collection>
+		<collection property="familyHistory" javaType="ArrayList" column="familyHistory" ofType="String">
+			<result property="familyHistory" column = "familyHistory"/>			
+		</collection>
+		<collection property="gastroIntestinal" javaType="ArrayList" column="gastroIntestinal" ofType="String">
+			<result property="gastroIntestinal" column = "gastroIntestinal"/>			
+		</collection>
+		<collection property="suppliments" javaType="ArrayList" column="suppliments" ofType="String">
+			<result property="suppliments" column = "suppliments"/>			
+		</collection>
+		<collection property="muscoloskeletal" javaType="ArrayList" column="muscoloskeletal" ofType="String">
+			<result property="muscoloskeletal" column = "muscoloskeletal"/>			
+		</collection>
+		<collection property="chair" javaType="ArrayList" column="chair" ofType="String">
+			<result property="chair" column = "chair"/>			
+		</collection>
+		<collection property="feet" javaType="ArrayList" column="feet" ofType="String">
+			<result property="feet" column = "feet"/>
+		</collection>		
 	</resultMap>
-	
-	<resultMap type="com.harquin.common.referringphysician.ReferringPhysician" id="ReferringPhysician">
-	    <result property="id" column="rp_id"/>
-	    <result property="firstName" column="rp_firstName"/>
-	    <result property="lastName" column="rp_lastName"/>  
-	</resultMap>	
-	
 	
 	<select id="getPatientDescriptionById" parameterType="int" resultMap="result">
 		select p.id, p.firstName, p.lastName, p.roomNumber, p.lastVisitDate, p.followUpVisitDate, p.location, p.gender, p.dateOfBirth, p.preferredLanguage,
 		p.ethnicity, p.race, p.isMedicationReviewed, p.isEmailPreferredContactMethod, p.isDiabetic, p.pneumococcalVaccine, p.fallRiskAssessment, p.appetite,
-		p.bed, p.isPatientReviewed, 
-		rp.id as rp_id, rp.firstName as rp_firstName, rp.lastName as rp_lastName,
-		pa.allergy as allergies   
+		p.bed, p.isPatientReviewed, p.referringPhysicianFirstName, p.referringPhysicianLastName
+		pa.allergy as allergies,
+		pac.anticoagulant as anticoagulants,
+		pc.chair as chair,
+		pfh.familyHistory as familyHistory,
+		pft.feetType as feet,
+		pgi.gastural_intestinal as gastroIntestinal,
+		pm.musculoskeletal as muscoloskeletal,
+		ppmh.past_medical_history as pastMedicalHistory,
+		ps.supplement as suppliments   
 		from patient as p 
-		join patient_allergies as pa on p.id = pa.patientId
-		join referring_physicians as rp on p.referringPhysicianId = rp.id  
+		left outer join patient_allergies as pa on p.id = pa.patientId
+		left outer join patient_anticoagulants as pac on p.id = pac.patientId
+		left outer join patient_chairs as pc on p.id = pc.patientId
+		left outer join patient_family_history as pfh on p.id = pfh.patientId
+		left outer join patient_feet_type as pft on p.id = pft.patientId
+		left outer join patient_gastural_intestinals as pgi on p.id = pgi.patientId
+		left outer join patient_musculoskeletal as pm on p.id = pm.patientId
+		left outer join patient_past_medical_history as ppmh on p.id = ppmh.patientId
+		left outer join patient_supplements as ps on p.id = ps.patientId
 		where p.id = #{id}
 	</select>
 	
-	<update id="updatePatientDescription" parameterType="com.harquin.common.patient.PatientDescription">
-		update patient set firstName = #{firstName}, lastName = #{lastName}, isActive = #{isActive}, lastVisitDate = #{lastVisitDate}, followUpVisitDate = #{followUpVisitDate}, location = #{location} where id = #{id}
-	</update>
 	
-	<insert id="insertPatientDescription" useGeneratedKeys="true" keyProperty="id" parameterType="com.harquin.common.patient.PatientDescription">
-		insert into patient (firstName, lastName, isActive, lastVisitDate, followUpVisitDate, location) values (#{firstName}, #{lastName}, #{isActive}, #{lastVisitDate}, #{followUpVisitDate}, #{location});
-	</insert>
+	<update id="updatePatientInfo" parameterType="com.harquin.common.patient.PatientDescription">
+		update patient set firstName = #{firstName}, 
+		lastName = #{lastName}, 
+		roomNumber = #{roomNumber}, 
+		gender = #{gender}, 
+		dateOfBirth = #{dateOfBirth}, 
+		preferredLanguage = #{preferredLanguage},
+		ethnicity = #{ethnicity},
+		race = #{race},
+		isMedicationReviewed = #{isMedicationReviewed},
+		isEmailPreferredContactMethod = #{isEmailPreferredContactMethod},
+		isDiabetic = #{isDiabetic},
+		pneumococcalVaccine = #{pneumococcalVaccine},
+		fallRiskAssessment = #{fallRiskAssessment},
+		socialHistory = #{socialHistory},
+		appetite = #{appetite},
+		bed = #{bed}, 
+		where id = #{patientId}
+	</update>
 	
 	<delete id="deletePatientDescription" parameterType="com.harquin.common.patient.PatientDescription">
 		delete from patient where id = #{id};
 	</delete>
+	
+	<insert id="insertPatientAllergies" parameterType="map">
+	insert into patient_allergies (allergy, patientId) values
+		<foreach collection="allergies" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientAllergies">
+		delete from patient_allergies where id = #{patientId};
+	</delete>
+	
+	
+	<insert id="insertPatientAnticoagulants" parameterType="map">
+	insert into patient_anticoagulants (anticoagulant, patientId) values
+		<foreach collection="anticoagulants" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientAnticoagulants">
+		delete from patient_anticoagulants where id = #{patientId};
+	</delete>
+		
+	<insert id="insertPatientPastMedicalHistory" parameterType="map">
+	insert into patient_past_medical_history (past_medical_history, patientId) values
+		<foreach collection="pastMedicalHistory" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientPastMedicalHistory">
+		delete from past_medical_history where id = #{patientId};
+	</delete>
+
+	<insert id="insertPatientFamilyHistory" parameterType="map">
+	insert into patient_family_history (familyHistory, patientId) values
+		<foreach collection="familyHistory" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientFamilyHistory">
+		delete from patient_family_history where id = #{patientId};
+	</delete>	
+
+	<insert id="insertPatientGastroIntestinals" parameterType="map">
+	insert into patient_gastural_intestinals (gastural_intestinal, patientId) values
+		<foreach collection="gastroIntestinals" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientGastroIntestinals">
+		delete from patient_gastural_intestinals where id = #{patientId};
+	</delete>	
+
+	<insert id="insertPatientSupplements" parameterType="map">
+	insert into patient_supplements (supplement, patientId) values
+		<foreach collection="supplements" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientSupplements">
+		delete from patient_supplements where id = #{patientId};
+	</delete>	
+
+	<insert id="insertPatientMusculoskeletal" parameterType="map">
+	insert into patient_musculoskeletal (musculoskeletal, patientId) values
+		<foreach collection="musculoskeletal" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientMusculoskeletal">
+		delete from patient_musculoskeletal where id = #{patientId};
+	</delete>
+	
+	<insert id="insertPatientChairs" parameterType="map">
+	insert into patient_chairs (chair, patientId) values
+		<foreach collection="chairs" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientChairs">
+		delete from patient_chairs where id = #{patientId};
+	</delete>	
+	
+	<insert id="insertPatientFeet" parameterType="map">
+	insert into patient_feet_type (feetType, patientId) values
+		<foreach collection="feet" separator="," item="element" index="index">
+			(#{element}, #{patientId})
+		</foreach>		
+	</insert>
+	
+	<delete id="deletePatientFeet">
+		delete from patient_feet_type where id = #{patientId};
+	</delete>		
 </mapper>

@@ -16,7 +16,6 @@ import com.harquin.common.location.Location;
 import com.harquin.common.muscoloskeletal.Muscoloskeletal;
 import com.harquin.common.pastmedicalhistory.PastMedicalHistory;
 import com.harquin.common.pneumococcalvaccine.PneumococcalVaccine;
-import com.harquin.common.referringphysician.ReferringPhysician;
 import com.harquin.common.socialHistory.SocialHistory;
 import com.harquin.common.suppliments.Suppliments;
 import com.harquin.common.wound.Wound;
@@ -39,8 +38,6 @@ public class PatientDescription {
 	private boolean isMedicationReviewed;
 	private boolean isEmailPreferredContactMethod;
 	
-	private ReferringPhysician referringPhysician;
-	
 	private List<String> anticoagulants;
 	
 	private boolean isDiabetic;
@@ -61,6 +58,9 @@ public class PatientDescription {
 	private List<String> feet;
 	
 	private boolean isPatientReviewed;
+	
+	private String referringPhysicianFirstName;
+	private String referringPhysicianLastName;
 	
 	public PatientDescription()
 	{
@@ -161,14 +161,6 @@ public class PatientDescription {
 
 	public void setEmailPreferredContactMethod(boolean isEmailPreferredContactMethod) {
 		this.isEmailPreferredContactMethod = isEmailPreferredContactMethod;
-	}
-
-	public ReferringPhysician getReferringPhysician() {
-		return referringPhysician;
-	}
-
-	public void setReferringPhysician(ReferringPhysician referringPhysician) {
-		this.referringPhysician = referringPhysician;
 	}
 
 	public List<String> getAnticoagulants() {
@@ -290,4 +282,20 @@ public class PatientDescription {
 	public void setPatientReviewed(boolean isPatientReviewed) {
 		this.isPatientReviewed = isPatientReviewed;
 	}
+
+	public String getReferringPhysicianFirstName() {
+		return referringPhysicianFirstName;
+	}
+
+	public void setReferringPhysicianFirstName(String referringPhysicianFirstName) {
+		this.referringPhysicianFirstName = referringPhysicianFirstName;
+	}
+
+	public String getReferringPhysicianLastName() {
+		return referringPhysicianLastName;
+	}
+
+	public void setReferringPhysicianLastName(String referringPhysicianLastName) {
+		this.referringPhysicianLastName = referringPhysicianLastName;
+	}	
 }
