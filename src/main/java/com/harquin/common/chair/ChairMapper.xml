@@ -7,14 +7,14 @@
 	</resultMap>
 	
 	<select id="getChairs" resultMap="result">
-		select name from chair_types;
+		select name from chair_type;
 	</select>
 	
 	<insert id="insertChair" parameterType="com.harquin.common.chair.Chair">
-		insert into chair_types (name) value (#{name});
+		insert into chair_type (name) value (#{name});
 	</insert>
 	
 	<delete id="deleteChair" parameterType="com.harquin.common.chair.Chair">
-		delete from chair_types where name = #{name};
+		delete from chair_type where name = #{name};
 	</delete>
 </mapper>

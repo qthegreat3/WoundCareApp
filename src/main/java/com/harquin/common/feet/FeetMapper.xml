@@ -7,14 +7,14 @@
 	</resultMap>
 	
 	<select id="getFeets" resultMap="result">
-		select name from feet;
+		select name from feet_type;
 	</select>
 	
 	<insert id="insertFeet" parameterType="com.harquin.common.feet.Feet">
-		insert into feet (name) value (#{name});
+		insert into feet_type (name) value (#{name});
 	</insert>
 	
 	<delete id="deleteFeet" parameterType="com.harquin.common.feet.Feet">
-		delete from feet where name = #{name};
+		delete from feet_type where name = #{name};
 	</delete>
 </mapper>

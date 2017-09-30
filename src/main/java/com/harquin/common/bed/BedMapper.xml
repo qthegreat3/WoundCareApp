@@ -7,14 +7,14 @@
 	</resultMap>
 	
 	<select id="getBeds" resultMap="result">
-		select name from bed_types;
+		select name from bed_type;
 	</select>
 	
 	<insert id="insertBed" parameterType="com.harquin.common.bed.Bed">
-		insert into bed_types (name) value (#{name});
+		insert into bed_type (name) value (#{name});
 	</insert>
 	
 	<delete id="deleteBed" parameterType="com.harquin.common.bed.Bed">
-		delete from bed_types where name = #{name};
+		delete from bed_type where name = #{name};
 	</delete>
 </mapper>

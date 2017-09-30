@@ -45,6 +45,16 @@ public class PatientDescriptionDao implements IPatientDescriptionDao {
 			throw new IllegalArgumentException("Patient Description Cannot Be Null");
 		}
 		
+		try
+		{
+			deleteJointPatientTables(sqlSessionFactory, patientDescription.getPatientId());
+		}
+		catch (Exception e)
+		{
+			log.error("Exception in deleteJointPatientTables in PatientDescriptionDao", e);
+			return false;
+		}
+		
 		try(SqlSession sqlSession = sqlSessionFactory.openSession();)
 		{
 			PatientDescriptionMapper mapper = sqlSession.getMapper(PatientDescriptionMapper.class);
@@ -76,21 +86,21 @@ public class PatientDescriptionDao implements IPatientDescriptionDao {
 			throw new IllegalArgumentException("Patient Description Cannot Be Null");
 		}
 		
+		try
+		{
+			deleteJointPatientTables(sqlSessionFactory, patientDescription.getPatientId());
+		}
+		catch (Exception e)
+		{
+			log.error("Exception in deleteJointPatientTables in PatientDescriptionDao", e);
+			return false;
+		}
+		
 		try(SqlSession sqlSession = sqlSessionFactory.openSession();)
 		{
 			PatientDescriptionMapper mapper = sqlSession.getMapper(PatientDescriptionMapper.class);
 
 			mapper.updatePatientInfo(patientDescription);
-			
-			mapper.deletePatientAllergies(patientDescription.getPatientId());
-			mapper.deletePatientAnticoagulants(patientDescription.getPatientId());
-			mapper.deletePatientChairs(patientDescription.getPatientId());
-			mapper.deletePatientFamilyHistory(patientDescription.getPatientId());
-			mapper.deletePatientFeet(patientDescription.getPatientId());
-			mapper.deletePatientGastroIntestinals(patientDescription.getPatientId());
-			mapper.deletePatientMusculoskeletal(patientDescription.getPatientId());
-			mapper.deletePatientPastMedicalHistory(patientDescription.getPatientId());
-			mapper.deletePatientSupplements(patientDescription.getPatientId());
 			
 			mapper.insertPatientAllergies(patientDescription.getAllergies(), patientDescription.getPatientId());
 			mapper.insertPatientAnticoagulants(patientDescription.getAnticoagulants(), patientDescription.getPatientId());
@@ -111,6 +121,24 @@ public class PatientDescriptionDao implements IPatientDescriptionDao {
 		return true;
 	}
 
+	protected static void deleteJointPatientTables(SqlSessionFactory sqlSessionFactory , int patientId) throws Exception
+	{
+		try(SqlSession sqlSession = sqlSessionFactory.openSession();)
+		{
+			PatientDescriptionMapper mapper = sqlSession.getMapper(PatientDescriptionMapper.class);
+			
+			mapper.deletePatientAllergies(patientId);
+			mapper.deletePatientAnticoagulants(patientId);
+			mapper.deletePatientChairs(patientId);
+			mapper.deletePatientFamilyHistory(patientId);
+			mapper.deletePatientFeet(patientId);
+			mapper.deletePatientGastroIntestinals(patientId);
+			mapper.deletePatientMusculoskeletal(patientId);
+			mapper.deletePatientPastMedicalHistory(patientId);
+			mapper.deletePatientSupplements(patientId);
+		}			
+	}
+	
 	@Override
 	public boolean deletePatientDecription(PatientDescription patientDescription) {
 		
@@ -121,6 +149,8 @@ public class PatientDescriptionDao implements IPatientDescriptionDao {
 		
 		PatientDescription nullDescription = new PatientDescription();
 		
+		nullDescription.setFirstName(patientDescription.getFirstName());
+		nullDescription.setLastName(patientDescription.getLastName());
 		nullDescription.setPatientId(patientDescription.getPatientId());
 		
 		try(SqlSession sqlSession = sqlSessionFactory.openSession();)
@@ -128,20 +158,20 @@ public class PatientDescriptionDao implements IPatientDescriptionDao {
 			PatientDescriptionMapper mapper = sqlSession.getMapper(PatientDescriptionMapper.class);
 			
 			mapper.updatePatientInfo(nullDescription);
-			
-			mapper.deletePatientAllergies(nullDescription.getPatientId());
-			mapper.deletePatientAnticoagulants(nullDescription.getPatientId());
-			mapper.deletePatientChairs(nullDescription.getPatientId());
-			mapper.deletePatientFamilyHistory(nullDescription.getPatientId());
-			mapper.deletePatientFeet(nullDescription.getPatientId());
-			mapper.deletePatientGastroIntestinals(nullDescription.getPatientId());
-			mapper.deletePatientMusculoskeletal(nullDescription.getPatientId());
-			mapper.deletePatientPastMedicalHistory(nullDescription.getPatientId());
-			mapper.deletePatientSupplements(nullDescription.getPatientId());
 		}
 		catch (Exception e)
 		{
 			log.error("Exception in deletePatientDecription", e);
+			return false;
+		}
+		
+		try
+		{
+			deleteJointPatientTables(sqlSessionFactory, nullDescription.getPatientId());
+		}
+		catch (Exception e)
+		{
+			log.error("Exception in deleteJointPatientTables in PatientDescriptionDao", e);
 			return false;
 		}
 		

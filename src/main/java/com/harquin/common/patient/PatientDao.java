@@ -100,6 +100,15 @@ public class PatientDao implements IPatientDao {
 		
 		validatePatient(patient);
 		
+		try
+		{
+			PatientDescriptionDao.deleteJointPatientTables(sqlSessionFactory, patient.getId());
+		}
+		catch (Exception e)
+		{
+			log.error("Exception in deleteJointPatientTables in PatientDescriptionDao", e);
+		}
+		
 		try(SqlSession session = sqlSessionFactory.openSession();)
 		{
 			PatientMapper mapper = session.getMapper(PatientMapper.class);

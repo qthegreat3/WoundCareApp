@@ -48,8 +48,23 @@ public class PatientDaoTest {
 		String locationName = "Urbana";
 		Location location = new Location(locationName);
 		
-		locationDao.deleteLocation(location);
-		locationDao.insertLocation(location);
+		List<Location> locationList = locationDao.getLocations();
+		
+		boolean isLocationinList = false;
+		
+		for(Location loc : locationList)
+		{
+			if(loc.getName().equals(location.getName()))
+			{
+				isLocationinList = true;
+				break;
+			}
+		}
+		
+		if(!isLocationinList)
+		{
+			locationDao.insertLocation(location);
+		}
 		
 		patient.setLocation(location.getName());
 		patientDao.insertPatient(patient);
@@ -66,9 +81,20 @@ public class PatientDaoTest {
 		String newLocationName = "Champagne"; 
 		
 		location.setName(newLocationName);
-		locationDao.deleteLocation(location);
-		locationDao.insertLocation(location);
 		
+		for(Location loc : locationList)
+		{
+			if(loc.getName().equals(location.getName()))
+			{
+				isLocationinList = true;
+				break;
+			}
+		}
+		
+		if(!isLocationinList)
+		{
+			locationDao.insertLocation(location);
+		}
 				
 		patient.setLocation(location.getName());
 		

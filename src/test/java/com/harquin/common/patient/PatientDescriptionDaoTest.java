@@ -1,8 +1,11 @@
 package com.harquin.common.patient;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +54,8 @@ import com.harquin.common.socialHistory.SocialHistory;
 import com.harquin.common.supplment.ISupplmentDao;
 import com.harquin.common.supplment.Supplment;
 import com.harquin.config.TestAppConfig;
+
+import ch.qos.logback.core.db.DBAppenderBase;
 
 @ContextConfiguration(classes = {TestAppConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -123,7 +128,7 @@ public class PatientDescriptionDaoTest {
 	ISupplmentDao supplimentDao;
 	
 	@Test
-	public void crudTest()
+	public void crudTest() throws ParseException
 	{
 		populateDBwithRelevantDropdownValues();
 		
@@ -229,6 +234,353 @@ public class PatientDescriptionDaoTest {
 		patientDescriptionDao.insertPatientDescription(description);
 		
 		PatientDescription dbDescription = patientDescriptionDao.getPatientDescriptionById(patient.getId());
+		
+		assertTrue(arePatientDescriptionsEqual(dbDescription, description));
+		
+		allergyList = new ArrayList<>();
+		allergyList.add(allergies[UPDATE_VALUE]);		
+		allergyList.add(allergies[UPDATE_VALUE+ 1]);
+		description.setAllergies(allergyList);
+				
+		anticoagulantList = new ArrayList<>();
+		anticoagulantList.add(anticoagulants[UPDATE_VALUE]);
+		anticoagulantList.add(anticoagulants[UPDATE_VALUE + 1]);
+		description.setAnticoagulants(anticoagulantList);
+		
+		description.setAppetite(appetites[UPDATE_VALUE]);
+		
+		description.setBed(beds[UPDATE_VALUE]);
+		
+		chairList = new ArrayList<>();
+		chairList.add(chairs[UPDATE_VALUE]);
+		chairList.add(chairs[UPDATE_VALUE + 1]);
+		description.setChair(chairList);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+				
+		dateOfBirth = sdf.parse("2017-08-08");		
+		description.setDateOfBirth(dateOfBirth);
+		
+		isDiabetic = false;
+		description.setDiabetic(isDiabetic);
+		
+		isEmailPreferredContactMethod = true;
+		description.setEmailPreferredContactMethod(isEmailPreferredContactMethod);
+		
+		description.setEthnicity(ethnicities[UPDATE_VALUE]);
+		
+		description.setFallRiskAssessment(fallRiskAssessments[UPDATE_VALUE]);
+		
+		familyHistoryList = new ArrayList<>();
+		familyHistoryList.add(familyHistories[UPDATE_VALUE]);
+		familyHistoryList.add(familyHistories[UPDATE_VALUE + 1]);
+		description.setFamilyHistory(familyHistoryList);
+		
+		feetList = new ArrayList<>();
+		feetList.add(feet[UPDATE_VALUE]);
+		feetList.add(feet[UPDATE_VALUE + 1]);
+		description.setFeet(feetList);
+		
+		firstName = "LAffy";
+		description.setFirstName(firstName);
+		
+		gastroIntestinalList = new ArrayList<>();
+		gastroIntestinalList.add(gis[UPDATE_VALUE]);
+		gastroIntestinalList.add(gis[UPDATE_VALUE + 1]);
+		description.setGastroIntestinal(gastroIntestinalList);
+		
+		description.setGender(genders[UPDATE_VALUE]);
+		
+		lastName = "Lurch";
+		description.setLastName(lastName);
+		
+		isMedicationReviewed = true;
+		description.setMedicationReviewed(isMedicationReviewed);
+		
+		muscoloskeletalList = new ArrayList<>();
+		muscoloskeletalList.add(musculoskeletals[UPDATE_VALUE]);
+		muscoloskeletalList.add(musculoskeletals[UPDATE_VALUE + 1]);
+		description.setMuscoloskeletal(muscoloskeletalList);
+		
+		pastMedicalhistoryList = new ArrayList<>();
+		pastMedicalhistoryList.add(pastMedicalHistories[UPDATE_VALUE]);
+		pastMedicalhistoryList.add(pastMedicalHistories[UPDATE_VALUE + 1]);
+		description.setPastMedicalhistory(pastMedicalhistoryList);
+		
+		isPatientReviewed = false;
+		description.setPatientReviewed(isPatientReviewed);
+		
+		description.setPneumococcalVaccine(pneumococcalVaccines[UPDATE_VALUE]);
+		
+		description.setPreferredLanguage(languages[UPDATE_VALUE]);
+		
+		description.setRace(races[UPDATE_VALUE]);
+		
+		physicianFirstName = "Stpe";
+		physicianLastName = "Reest";
+
+		description.setReferringPhysicianFirstName(physicianFirstName);
+		description.setReferringPhysicianLastName(physicianLastName);
+		
+		roomNumber = "12A";
+		description.setRoomNumber(roomNumber);
+		
+		description.setSocialHistory(socialHistories[UPDATE_VALUE]);
+		
+		supplimentsList = new ArrayList<>();
+		supplimentsList.add(suppliments[UPDATE_VALUE]);
+		supplimentsList.add(suppliments[UPDATE_VALUE + 1]);
+		description.setSuppliments(supplimentsList);
+		
+		patientDescriptionDao.updatePatientDescription(description);
+		
+		dbDescription = patientDescriptionDao.getPatientDescriptionById(description.getPatientId());
+		
+		assertTrue(arePatientDescriptionsEqual(description, dbDescription));
+		
+		patientDescriptionDao.deletePatientDecription(description);
+		
+		dbDescription = patientDescriptionDao.getPatientDescriptionById(description.getPatientId());
+		
+		assertTrue(dbDescription.getFirstName().equals(description.getFirstName()));
+		assertTrue(dbDescription.getFirstName().equals(description.getFirstName()));
+		assertTrue(dbDescription.getPatientId() == description.getPatientId());
+		assertTrue(dbDescription.getAllergies().isEmpty());
+		assertTrue(dbDescription.getAnticoagulants().isEmpty());
+		assertTrue(dbDescription.getChair().isEmpty());
+		assertTrue(dbDescription.getFamilyHistory().isEmpty());
+		assertTrue(dbDescription.getFeet().isEmpty());
+		assertTrue(dbDescription.getGastroIntestinal().isEmpty());
+		assertTrue(dbDescription.getMuscoloskeletal().isEmpty());
+		assertTrue(dbDescription.getPastMedicalhistory().isEmpty());
+		assertTrue(dbDescription.getSuppliments().isEmpty());
+		assertTrue(dbDescription.getAppetite() == null);
+		assertTrue(dbDescription.getBed() == null);
+		assertTrue(dbDescription.getDateOfBirth() == null);
+		assertTrue(dbDescription.getEthnicity() == null);
+		assertTrue(dbDescription.getFallRiskAssessment() == null);
+		assertTrue(dbDescription.getGender() == null);
+		assertTrue(dbDescription.getPneumococcalVaccine() == null);
+		assertTrue(dbDescription.getPreferredLanguage() == null);
+		assertTrue(dbDescription.getRace() == null);
+		assertTrue(dbDescription.getReferringPhysicianFirstName() == null);
+		assertTrue(dbDescription.getReferringPhysicianLastName() == null);
+		assertTrue(dbDescription.getRoomNumber() == null);
+		assertTrue(dbDescription.getSocialHistory() == null);
+		assertTrue(!dbDescription.isDiabetic());
+		assertFalse(dbDescription.isEmailPreferredContactMethod());
+		assertFalse(dbDescription.isMedicationReviewed());
+		assertFalse(dbDescription.isPatientReviewed());
+		patientDescriptionDao.insertPatientDescription(dbDescription);
+		PatientDescription newDesription = patientDescriptionDao.getPatientDescriptionById(dbDescription.getPatientId());
+		assertTrue(newDesription.getFirstName().equals(dbDescription.getFirstName()));
+		assertTrue(newDesription.getFirstName().equals(dbDescription.getFirstName()));
+		assertTrue(newDesription.getPatientId() == dbDescription.getPatientId());
+		assertTrue(newDesription.getAllergies().isEmpty());
+		assertTrue(newDesription.getAnticoagulants().isEmpty());
+		assertTrue(newDesription.getChair().isEmpty());
+		assertTrue(newDesription.getFamilyHistory().isEmpty());
+		assertTrue(newDesription.getFeet().isEmpty());
+		assertTrue(newDesription.getGastroIntestinal().isEmpty());
+		assertTrue(newDesription.getMuscoloskeletal().isEmpty());
+		assertTrue(newDesription.getPastMedicalhistory().isEmpty());
+		assertTrue(newDesription.getSuppliments().isEmpty());
+		assertTrue(newDesription.getAppetite() == null);
+		assertTrue(newDesription.getBed() == null);
+		assertTrue(newDesription.getDateOfBirth() == null);
+		assertTrue(newDesription.getEthnicity() == null);
+		assertTrue(newDesription.getFallRiskAssessment() == null);
+		assertTrue(newDesription.getGender() == null);
+		assertTrue(newDesription.getPneumococcalVaccine() == null);
+		assertTrue(newDesription.getPreferredLanguage() == null);
+		assertTrue(newDesription.getRace() == null);
+		assertTrue(newDesription.getReferringPhysicianFirstName() == null);
+		assertTrue(newDesription.getReferringPhysicianLastName() == null);
+		assertTrue(newDesription.getRoomNumber() == null);
+		assertTrue(newDesription.getSocialHistory() == null);
+		assertTrue(!newDesription.isDiabetic());
+		assertFalse(newDesription.isEmailPreferredContactMethod());
+		assertFalse(newDesription.isMedicationReviewed());
+		assertFalse(newDesription.isPatientReviewed());
+	}
+	
+	private boolean arePatientDescriptionsEqual(PatientDescription pd1, PatientDescription pd2)
+	{	
+		if(!areTheseListsEqual(pd1.getAllergies(), pd2.getAllergies()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getAnticoagulants(), pd2.getAnticoagulants()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getChair(), pd2.getChair()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getFamilyHistory(), pd2.getFamilyHistory()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getFeet(), pd2.getFeet()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getGastroIntestinal(), pd2.getGastroIntestinal()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getMuscoloskeletal(), pd2.getMuscoloskeletal()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getPastMedicalhistory(), pd2.getPastMedicalhistory()))
+		{
+			return false;
+		}
+		
+		if(!areTheseListsEqual(pd1.getSuppliments(), pd2.getSuppliments()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getAppetite().equals(pd2.getAppetite()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getBed().equals(pd2.getBed()))
+		{
+			return false;
+		}
+		
+		if(!areTheseDatesEqual(pd1.getDateOfBirth(), pd2.getDateOfBirth()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getEthnicity().equals(pd2.getEthnicity()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getFallRiskAssessment().equals(pd2.getFallRiskAssessment()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getFirstName().equals(pd2.getFirstName()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getGender().equals(pd2.getGender()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getLastName().equals(pd2.getLastName()))
+		{
+			return false;
+		}
+		
+		if(!(pd1.getPatientId() == pd2.getPatientId()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getPneumococcalVaccine().equals(pd2.getPneumococcalVaccine()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getPreferredLanguage().equals(pd2.getPreferredLanguage()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getRace().equals(pd2.getRace()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getReferringPhysicianFirstName().equals(pd2.getReferringPhysicianFirstName()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getReferringPhysicianLastName().equals(pd2.getReferringPhysicianLastName()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getRoomNumber().equals(pd2.getRoomNumber()))
+		{
+			return false;
+		}
+		
+		if(!pd1.getSocialHistory().equals(pd2.getSocialHistory()))
+		{
+			return false;
+		}
+		
+		if(pd1.isDiabetic() != pd2.isDiabetic())
+		{
+			return false;
+		}
+		
+		if(pd1.isEmailPreferredContactMethod() != pd2.isEmailPreferredContactMethod())
+		{
+			return false;
+		}
+		
+		if(pd1.isMedicationReviewed() != pd2.isMedicationReviewed())
+		{
+			return false;
+		}
+		
+		if(pd1.isPatientReviewed() != pd2.isPatientReviewed())
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	private <T> boolean areTheseListsEqual (List<T> list1, List<T> list2)
+	{
+		for(T item : list1)
+		{
+			if(!list2.contains(item))
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private boolean areTheseDatesEqual(Date date1, Date date2)
+	{
+		Calendar cal1 = Calendar.getInstance();		
+		cal1.setTime(date1);
+		
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(date2);
+		
+		boolean areDaysEqual = cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+		boolean areMonthsEqual = cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
+		boolean areYearsEqual = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+		
+		return areDaysEqual && areMonthsEqual && areYearsEqual;
 	}
 	
 	private Patient createPatient()
@@ -236,10 +588,6 @@ public class PatientDescriptionDaoTest {
 		Location location = new Location("Crazy");
 		locationDao.insertLocation(location);
 				
-		List<Patient> patientList = patientDao.getPatientsByLocation(location);
-		
-		assertTrue(patientList.isEmpty());
-		
 		String firstName = "Get";
 		String lastName = "Friday";
 		
@@ -257,7 +605,6 @@ public class PatientDescriptionDaoTest {
 		patient.setActive(isActive);
 		
 		patientDao.insertPatient(patient);
-		patientList = patientDao.getPatientsByLocation(location);
 		
 		return patient;
 	}
