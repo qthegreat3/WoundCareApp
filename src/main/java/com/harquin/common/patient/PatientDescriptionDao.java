@@ -1,8 +1,5 @@
 package com.harquin.common.patient;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
@@ -10,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class PatientDescriptionDao implements IPatientDescriptionDao {
 
-	private static final Logger log = LoggerFactory.getLogger(PatientDescriptionDaoTest.class);
+	private static final Logger log = LoggerFactory.getLogger(PatientDescriptionDao.class);
 	
 	private SqlSessionFactory sqlSessionFactory;
 	

@@ -15,18 +15,32 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.harquin.common.IMyBatisMapperMarker;
 import com.harquin.common.allergy.AllergyDao;
 import com.harquin.common.allergy.IAllergyDao;
+import com.harquin.common.anticoagulant.AnticoagulantDao;
+import com.harquin.common.anticoagulant.IAnticoagulantDao;
+import com.harquin.common.appetite.AppetiteDao;
+import com.harquin.common.appetite.IAppetiteDao;
+import com.harquin.common.bed.BedDao;
+import com.harquin.common.bed.IBedDao;
+import com.harquin.common.chair.ChairDao;
+import com.harquin.common.chair.IChairDao;
+import com.harquin.common.ethnicity.EthnicityDao;
+import com.harquin.common.ethnicity.IEthnicityDao;
 import com.harquin.common.exudate.ExudateDao;
 import com.harquin.common.exudate.IExudateDao;
 import com.harquin.common.fallriskassessment.FallRiskAssessmentDao;
 import com.harquin.common.fallriskassessment.IFallRiskAssessmentDao;
 import com.harquin.common.familyhistory.FamilyHistoryDao;
 import com.harquin.common.familyhistory.IFamilyHistoryDao;
+import com.harquin.common.feet.FeetDao;
+import com.harquin.common.feet.IFeetDao;
 import com.harquin.common.followuprange.FollowUpRangeDao;
 import com.harquin.common.followuprange.IFollowUpRangeDao;
 import com.harquin.common.foottemperature.FootTemperatureDao;
 import com.harquin.common.foottemperature.IFootTemperatureDao;
 import com.harquin.common.frequency.FrequencyDao;
 import com.harquin.common.frequency.IFrequencyDao;
+import com.harquin.common.gastrointestinal.GastroIntestinalDao;
+import com.harquin.common.gastrointestinal.IGastroIntestinalDao;
 import com.harquin.common.gender.GenderDao;
 import com.harquin.common.gender.IGenderDao;
 import com.harquin.common.indication.IIndicationDao;
@@ -37,6 +51,8 @@ import com.harquin.common.instrument.IInstrumentDao;
 import com.harquin.common.instrument.InstrumentDao;
 import com.harquin.common.language.ILanguageDao;
 import com.harquin.common.language.LanguageDao;
+import com.harquin.common.location.ILocationDao;
+import com.harquin.common.location.LocationDao;
 import com.harquin.common.monofilament.IMonofilamentDao;
 import com.harquin.common.monofilament.MonofilamentDao;
 import com.harquin.common.mood.IMoodDao;
@@ -53,6 +69,10 @@ import com.harquin.common.otherwoundtissue.IOtherWoundTissueDao;
 import com.harquin.common.otherwoundtissue.OtherWoundTissueDao;
 import com.harquin.common.pastmedicalhistory.IPastMedicalHistoryDao;
 import com.harquin.common.pastmedicalhistory.PastMedicalHistoryDao;
+import com.harquin.common.patient.IPatientDao;
+import com.harquin.common.patient.IPatientDescriptionDao;
+import com.harquin.common.patient.PatientDao;
+import com.harquin.common.patient.PatientDescriptionDao;
 import com.harquin.common.pedalpulsedescription.IPedalPulseDescriptionDao;
 import com.harquin.common.pedalpulsedescription.PedalPulseDescriptionDao;
 import com.harquin.common.periwound.IPeriwoundDao;
@@ -146,7 +166,6 @@ public class DataConfig {
 		return allergyDao;
 	}
 
-	
 	@Bean
 	public IExudateDao exudateDao() throws Exception
 	{
@@ -364,5 +383,85 @@ public class DataConfig {
 		IFallRiskAssessmentDao fallRiskAssessmentDao = new FallRiskAssessmentDao(sqlSessionFactory());
 		
 		 return fallRiskAssessmentDao;
+	}
+	
+	@Bean
+	public IPatientDao patientDao() throws Exception
+	{
+		IPatientDao patientDao = new PatientDao(sqlSessionFactory());
+		
+		return patientDao;
+	}
+	
+	@Bean
+	public ILocationDao locationDao() throws Exception
+	{
+		ILocationDao locationDao = new LocationDao(sqlSessionFactory());
+		
+		return locationDao;
+	}
+	
+	@Bean
+	public IPatientDescriptionDao patientDescriptionDao() throws Exception
+	{
+		IPatientDescriptionDao patientDescriptionDao = new PatientDescriptionDao(sqlSessionFactory());
+		
+		return patientDescriptionDao;
+	}
+	
+	@Bean
+	public IEthnicityDao ethnicityDao() throws Exception
+	{
+		IEthnicityDao ethnicityDao = new EthnicityDao(sqlSessionFactory());
+		
+		return ethnicityDao;
+	}
+	
+	@Bean
+	public IGastroIntestinalDao gastroIntestinalDao() throws Exception
+	{
+		IGastroIntestinalDao gastroIntestinalDao = new GastroIntestinalDao(sqlSessionFactory());
+		
+		return gastroIntestinalDao;
+	}
+	
+	@Bean
+	public IAppetiteDao appetiteDao() throws Exception
+	{
+		IAppetiteDao appetiteDao = new AppetiteDao(sqlSessionFactory());
+		
+		return appetiteDao;
+	}
+	
+	@Bean
+	public IBedDao bedDao() throws Exception
+	{
+		IBedDao bedDao = new BedDao(sqlSessionFactory());
+		
+		return bedDao;
+	}
+
+	@Bean
+	public IChairDao chairDao() throws Exception
+	{
+		IChairDao chairDao = new ChairDao(sqlSessionFactory());
+		
+		return chairDao;
+	}
+	
+	@Bean
+	public IFeetDao feetDao() throws Exception
+	{
+		IFeetDao feetDao = new FeetDao(sqlSessionFactory());
+		
+		return feetDao;
+	}
+	
+	@Bean
+	public IAnticoagulantDao anticoagulantDao() throws Exception
+	{
+		IAnticoagulantDao anticoagulantDao = new AnticoagulantDao(sqlSessionFactory());
+		
+		return anticoagulantDao;
 	}
 }
