@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.harquin.common.patient.Patient;
 import com.harquin.config.TestAppConfig;
 
 @ContextConfiguration(classes = {TestAppConfig.class})
@@ -33,6 +36,22 @@ public class AllergyDaoTest {
 		allergyDao.deleteAllergy(allergy);
 		
 		assertTrue(allergyDao.getAllergies().isEmpty());
+	}
+	
+	@Test
+	public void nullJsonTest()
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Patient patient = new Patient("Haold", "Tarley");
+		
+		try {
+			String encode = mapper.writeValueAsString(patient);
+			System.out.println("Patient is " + encode);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

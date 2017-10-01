@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +20,18 @@ public class PatientController {
 
 	private static final Logger log = LoggerFactory.getLogger(PatientController.class);
 	
+	@Autowired
+	private PatientService service;
+	
 	@RequestMapping(value="/patient", method=RequestMethod.GET)
 	public ResponseEntity<?> getPatientByLocation(@RequestParam String location)
 	{
-		if(location == null)
+		if(location == null || location.isEmpty())
 		{
-			return new ResponseEntity<>("Location parameter cannot be null" , HttpStatus.PARTIAL_CONTENT);
+			return new ResponseEntity<>("Location parameter cannot be null or empty" , HttpStatus.PARTIAL_CONTENT);
 		}
 		
 		Location searchLocation = new Location(location);
-		
-		PatientService service = new PatientService();
 		
 		List<Patient> patientList = service.getPatientsByLocation(searchLocation);
 		
